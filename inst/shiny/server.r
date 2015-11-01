@@ -7,19 +7,16 @@ round <- function(x) base::round(x, digits=ndigits)
 
 
 shinyServer(function(input, output){
-  ### Plot data
-  x <- reactive({
+  ### Data
+  df <- reactive({
     validate(
       need(!is.na(input$mean), "You must input a value for 'mean'."),
       need(input$sd > 0, "Standard Devaiation value must be > 0")
     )
     
-    seq(input$mean - 4*input$sd, input$mean + 4*input$sd, by=0.01)
-  })
-  
-  df <- reactive({
-    density <- dnorm(x(), mean=input$mean, sd=input$sd)
-    data.frame(x=x(), y=density)
+    x <- seq(input$mean - 4*input$sd, input$mean + 4*input$sd, by=0.01)
+    density <- dnorm(x, mean=input$mean, sd=input$sd)
+    data.frame(x=x, y=density)
   })
   
   areain <- reactive({
@@ -27,9 +24,9 @@ shinyServer(function(input, output){
       need(!is.na(input$areain), "You must input a value for 'area'.")
     )
     
-    print(input$areain)
     input$areain
   })
+  
   
   ### above/below/etc parameters
   above <- reactive({
@@ -90,6 +87,7 @@ shinyServer(function(input, output){
     }
   })
   
+  
   area <- reactive({
     if (input$inputtype == 'area')
       areain()
@@ -116,6 +114,9 @@ shinyServer(function(input, output){
     }
   })
   
+  
+  
+  ### Outputs
   output$areaout <- renderText(area())
   
   output$quantile <- renderText({
