@@ -1,7 +1,21 @@
-#' Run the Text Gateway App
+#' normalApp
+#' 
+#' Run the normal distribution app.
 #'
 #' @export
-stat201 <- function()
+normalApp <- function()
 {
-  shiny::runApp(file.path(system.file("shiny", package="stat201")))
+  shiny::runApp(file.path(system.file("shiny/normal", package="stat201")))
+}
+
+
+
+#' clt
+#' 
+#' Run the central limit theorem app.
+#'
+#' @export
+cltApp <- function()
+{
+  shiny::runApp(file.path(system.file("shiny/clt", package="stat201")))
 }

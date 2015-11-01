@@ -1,7 +1,7 @@
 # Stat201
 
 Prototype shiny app for UTK's Stat201.  Currently only has a normal
-distribution calculator.
+distribution calculator and a central limit theorem demonstration.
 
 
 
@@ -12,8 +12,17 @@ devtools::install_github("wrathematics/stat201")
 ```
 
 
+
 ## Launching
 
+Launch the normal distribution app via:
+
 ```r
-stat201::stat201()
+stat201::normalApp()
+```
+
+Launch the central limit theorem app via:
+
+```r
+stat201::cltApp()
 ```
