@@ -1,0 +1,16 @@
+Package: stat201
+Title: Tools for UTK's Stat201
+Version: 0.1.0
+Description:  TODO
+License: BSD 2-clause + file LICENSE
+Depends: R (>= 3.0.0)
+Imports:
+  shiny (>= 0.11.1),
+  ggplot2 (>= 1.0.0)
+NeedsCompilation: no
+ByteCompile: yes
+Authors@R: person("Drew", "Schmidt", email="wrathematics@gmail.com", 
+  role=c("aut", "cre"))
+Maintainer: Drew Schmidt <wrathematics@gmail.com>
+URL: https://github.com/wrathematics/stat201
+BugReports: https://github.com/wrathematics/stat201/issues
