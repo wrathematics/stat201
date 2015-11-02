@@ -49,6 +49,20 @@ shinyServer(function(input, output){
       x <- seq(loc - 4*scl, loc + 4*scl, by=0.1)
       dens <- dcauchy(x, location=loc, scale=scl)
     }
+    else if (input$distr == "Weibull")
+    {
+      shape <- input$weibull_shape
+      scale <- input$weibull_scale
+      
+      validate(
+        need(shape > 0, "Shape must be > 0."),
+        need(scale > 0, "Scale must be > 0.")
+      )
+      
+      # don't know a better way tbh
+      x <- sort(rweibull(1000, shape=shape, scale=scale))
+      dens <- dweibull(x, shape=shape, scale=scale)
+    }
     
     
     if (input$distr != "Binomial")
@@ -73,6 +87,8 @@ shinyServer(function(input, output){
       rdensfun <- function(n) rexp(n, rate=input$exp_rate)
     else if (input$distr == "Cauchy")
       rdensfun <- function(n) rcauchy(n, location=input$cauchy_loc, scale=input$cauchy_scl)
+    else if (input$distr == "Weibull")
+      rdensfun <- function(n) rweibull(n, shape=input$weibull_shape, scale=input$weibull_scale)
     
     means <- sapply(1:input$ntrials, function(.) mean(rdensfun(input$sampsize)))
     hist(means, xlab="Mean", main="Distribution of Sample Means")
