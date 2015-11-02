@@ -16,6 +16,17 @@ shinyServer(function(input, output){
       x <- seq(mean - 4*sd, mean + 4*sd, by=0.1)
       dens <- dnorm(x, mean=mean, sd=sd)
     }
+    else if (input$distr == "Uniform")
+    {
+      min <- input$unif_min
+      max <- input$unif_max
+      validate(
+        need(min <= max, "The minimum needs to be less than the maximum.")
+      )
+      
+      x <- seq(min, max, by=0.01*(max-min))
+      dens <- dunif(x, min=min, max=max)
+    }
     else if (input$distr == "Student's t")
     {
       x <- seq(-4, 4, by=0.1)
@@ -52,6 +63,8 @@ shinyServer(function(input, output){
     
     if (input$distr == "Normal")
       rdensfun <- function(n) rnorm(n, mean=input$norml_mean, sd=input$norml_sd)
+    else if (input$distr == "Uniform")
+      rdensfun <- function(n) runif(n, min=input$unif_min, max=input$unif_max)
     else if (input$distr == "Student's t")
       rdensfun <- function(n) rt(n, df=input$t_df)
     else if (input$distr == "Binomial")

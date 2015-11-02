@@ -15,11 +15,16 @@ shinyUI(
     headerPanel("Central Limit Theorem"),
     sidebarPanel(
       radioButtons(inputId="distr", label="Distribution", 
-        choices=c("Normal", "Student's t", "Binomial", "Exponential", "Cauchy")),
+        choices=c("Normal", "Uniform", "Student's t", "Binomial", "Exponential", "Cauchy")),
       
       conditionalPanel(condition="input.distr == 'Normal'",
         numericInput("norml_mean", "Mean", value=0),
         numericInput("norml_sd", "Standard Deviation", min=1, value=1)
+      ),
+      
+      conditionalPanel(condition="input.distr == 'Uniform'",
+        numericInput("unif_min", "Minimum", value=0),
+        numericInput("unif_max", "Maximum", value=1)
       ),
       
       conditionalPanel(condition="input.distr == 'Student\\'s t'",
