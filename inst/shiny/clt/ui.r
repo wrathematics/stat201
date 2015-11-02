@@ -14,7 +14,7 @@ shinyUI(
     
     headerPanel("Central Limit Theorem"),
     sidebarPanel(
-      radioButtons(inputId="distr", label="Distribution", 
+      selectInput(inputId="distr", label="Distribution", 
         choices=c("Normal", "Uniform", "Student's t", "Binomial", "Exponential", "Cauchy", "Weibull")),
       
       conditionalPanel(condition="input.distr == 'Normal'",
