@@ -15,7 +15,7 @@ shinyUI(
     headerPanel("Central Limit Theorem"),
     sidebarPanel(
       radioButtons(inputId="distr", label="Distribution", 
-        choices=c("Normal", "Student's t", "Binomial", "Exponential")),
+        choices=c("Normal", "Student's t", "Binomial", "Exponential", "Cauchy")),
       
       conditionalPanel(condition="input.distr == 'Normal'",
         numericInput("norml_mean", "Mean", value=0),
@@ -32,6 +32,11 @@ shinyUI(
       
       conditionalPanel(condition="input.distr == 'Exponential'",
         numericInput("exp_rate", "Rate", value=1)
+      ),
+      
+      conditionalPanel(condition="input.distr == 'Cauchy'",
+        numericInput("cauchy_loc", "Location", value=0),
+        numericInput("cauchy_scl", "Scale", min=0, value=1)
       ),
       
       sliderInput(inputId="sampsize", label="Sample Size", min=1, max=100, value=10),
