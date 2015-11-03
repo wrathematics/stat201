@@ -15,7 +15,7 @@ shinyUI(
     headerPanel("Central Limit Theorem"),
     sidebarPanel(
       selectInput(inputId="distr", label="Distribution", 
-        choices=c("Normal", "Uniform", "Student's t", "Binomial", "Exponential", "Cauchy", "Weibull")),
+        choices=c("Normal", "Uniform", "Student's t", "F", "Binomial", "Exponential", "Cauchy", "Weibull")),
       
       conditionalPanel(condition="input.distr == 'Normal'",
         numericInput("norml_mean", "Mean", value=0),
@@ -29,6 +29,11 @@ shinyUI(
       
       conditionalPanel(condition="input.distr == 'Student\\'s t'",
         numericInput("t_df", "Degrees of Freedom", min=0, value=1)
+      ),
+      
+      conditionalPanel(condition="input.distr == 'F'",
+        numericInput("f_df1", "df1", value=1, min=0),
+        numericInput("f_df2", "df2", value=1, min=0)
       ),
       
       conditionalPanel(condition="input.distr == 'Binomial'",

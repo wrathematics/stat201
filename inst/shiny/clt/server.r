@@ -32,6 +32,17 @@ shinyServer(function(input, output){
       x <- seq(-4, 4, by=0.1)
       dens <- dt(x, df=input$t_df)
     }
+    else if (input$distr == "F")
+    {
+      df1 <- input$f_df1
+      df2 <- input$f_df2
+      validate(
+        need(df1>0 && df2>0, "The degrees of freedom parameters must be >0.")
+      )
+      
+      x <- seq(0, 5, by=0.01)
+      dens <- df(x, df2, df2)
+    }
     else if (input$distr == "Binomial")
     {
       hist(dbinom(c(0, 1), size=1, prob=input$binom_prob), xlab="", xlim=c(0, 1), main="")
@@ -81,6 +92,8 @@ shinyServer(function(input, output){
       rdensfun <- function(n) runif(n, min=input$unif_min, max=input$unif_max)
     else if (input$distr == "Student's t")
       rdensfun <- function(n) rt(n, df=input$t_df)
+    else if (input$distr == "F")
+      rdensfun <- function(n) rf(n, df1=input$f_df1, df2=input$f_df2)
     else if (input$distr == "Binomial")
       rdensfun <- function(n) rbinom(n, size=1, prob=input$binom_prob)
     else if (input$distr == "Exponential")
