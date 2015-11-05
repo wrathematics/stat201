@@ -41,7 +41,7 @@ shinyServer(function(input, output){
       )
       
       x <- seq(0, 5, by=0.01)
-      dens <- df(x, df2, df2)
+      dens <- df(x, df1, df2)
     }
     else if (input$distr == "Binomial")
     {
