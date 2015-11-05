@@ -60,6 +60,15 @@ shinyServer(function(input, output){
       x <- seq(loc - 4*scl, loc + 4*scl, by=0.1)
       dens <- dcauchy(x, location=loc, scale=scl)
     }
+    else if (input$distr == "Poisson")
+    {
+      validate(
+        need(input$pois_rate > 0, "Rate must be > 0.")
+      )
+      
+      x <- sort(rpois(5000, lambda=input$pois_rate))
+      dens <- dpois(x, lambda=input$pois_rate)
+    }
     else if (input$distr == "Weibull")
     {
       shape <- input$weibull_shape
@@ -100,6 +109,8 @@ shinyServer(function(input, output){
       rdensfun <- function(n) rexp(n, rate=input$exp_rate)
     else if (input$distr == "Cauchy")
       rdensfun <- function(n) rcauchy(n, location=input$cauchy_loc, scale=input$cauchy_scl)
+    else if (input$distr == "Poisson")
+      rdensfun <- function(n) rpois(n, lambda=input$pois_rate)
     else if (input$distr == "Weibull")
       rdensfun <- function(n) rweibull(n, shape=input$weibull_shape, scale=input$weibull_scale)
     
